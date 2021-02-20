@@ -1,0 +1,59 @@
+Why Node????
+ A run time environment for executing javascript course.
+Often we use node to build backend services also called APIs(Application Programming Interface). these are the services emmpower the web app running in the browser and mobile app running in ther mobile device. node is a highly scalable , data intensive and real time apps. 
+here we have a questions why Node? whether other services like jango, ASP.net, ruby&rails etc. than why we use node? 
+1- its great for prototyping and agile development
+2- super fast and highly scalable,
+    paypal also use node at backend because Node Application
+    a- Built twice as fast with fewer people
+    b- 33% fewer line code.
+    c- 40% fewer files
+    d- 2x requests/sec 
+    e- 35% faster response time.
+    so node is an excelent choice to build highly scalable services.
+3- Because node also has javascript
+4- cleaner and more consistent codebase because frontend and backend have same language.
+4- largest ecosystem of open source libraries.
+
+------------------------------------------------------------------------------------------
+
+                            Architecture of node                                            
+
+node is a runtime environment to build javascript applications.
+every browser has a javascript engine which takes the javascript code and convert it to the machine code.
+forexample. microsoft edge uses Chakra, Mozilla uses SpiderMonkey, and google chrome uses V8 engines. due to changing in engines javascript code behaves differently in different browser. browser provides runtime environment to javascript code. as we know browser has a document object like 
+document.getElementById('').  upto 2009 javascript code can only be executed inside the browser. but in 2009 Ryan Dhal invented the nodejs which can run in machine. he used the chrome v8 engine which is a powerfull javascript engine inside the C++ and called it a Node.exe. similar to browser node is a runtim environment for javascript. node also provides the different objects which are diferent from browser objects. like
+fs.readFile(), http.createServer(),
+in short node is a program that includes V8 javascript engine plus some additional modules that give us capability that not include inside the browser. we can deal with the filesystem and the networks and so on. some people says that we prefer C# than Node. but this comparison is not sensible(as we cannot compare android with a car). because Node is not a programming language. Node is also not a framework. its a run time environment to execute the javascript code.  
+
+---------------------------------------------------------------------------------------------------------
+
+                    How Node Works                              
+
+as we know that node applications are highly scalable, data-intensisve and real time apps this is due to the non-blocking and asynchronous behaviour of node.
+synchronous provides blocking and asynchronous not blocking the code. when a request is sending to the server a thread is generated against this thread. in synchronous actions new threads are assigning to each request to handle that. if all threads are bussy than new request will be pendng and server will b down. so new client has to wait untill a thread is available if we dont want to wait we have to add more hardware servers. in this way we will not utilize our resources efficiently. this is the major problem of using synchronous or blocking architecture. ASP.net worked synchronous. but it can also work asynchronously but we have to do some extra works. Node is asynchronous by default and we dont have to do anything extra. lets suppose we have two requests one thread will take one request and send it to the server untill the the server respose back its query this thread move forward to listen the second request. when server is respond against the first thread this response is directly comes in "Event Queue". node continuously monitor this Event Queue .when an event is occured in event queue node take it and do some process on it. this behaviour of node mad it ideal(to deal with a lot or disk and network access) for I/O- intensive Apps. we can serve more clients without hte need of more hardware. there fore node applications are more scalable. but here are so dark aspects of node. node should not be used with CPU intensive apps like Video Encoding or image manipulation service. in that type of application  a lot of calculation has been done and freez the operations. because node is asynchronous when its serving to one client for calculation other client should have to wait. therefore node should not be used for CPU intensive applications it can be used with data intensive and real time applications.
+
+
+----------------------------------------------------------------------------------------------------------
+
+                                        Course Structre
+
+1- we'll know about the most fundamental concept Node Module System. 
+    how to create own module systems.
+    how to use built in modules(like filesystems, http system, operating system)
+2- we'll look at node package manager(NPM)
+3- how to build restfull APIs with Express
+4- storing data in array untill we learn about mongodb
+5- asynchronous javascript and difference between synchronous and asynchronous
+6- storing data in MongoDB and Mongoos(a library to store data in mongodb)
+7- Authentication and authorization including role management with Json web Tokens.
+8- important topics of Handeling and logging errors.
+9- Unit and integration testing
+10- test driven development 
+11- Deployment
+
+
+----------------------------------------------------------------------------------------------
+
+                                Module Systems in Node.
+
