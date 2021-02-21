@@ -9,7 +9,6 @@
   "author": "Hafiz Muhammad Usman",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^5.11.17",
     "underscore": "^1.12.0"
   }
 }
