@@ -1,0 +1,2 @@
+// ^4.13.6 means that we can intersect with any version of package with Major version is $. minor and major version should be fully updated.
+// but in reality when we restore these dependencies chances are the installed version of package of that package inside the node_modules is higher than the 4.13.6. how can we know what version has been installed?
