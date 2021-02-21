@@ -1,0 +1,11 @@
+{
+  "name": "restapi-express",
+  "version": "1.0.0",
+  "description": "this package is used to learning restapis with express",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "H M Usman",
+  "license": "ISC"
+}

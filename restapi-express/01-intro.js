@@ -1,0 +1,3 @@
+// earlier we have studied about node module systems. where we have learnt about http module. this  module is used to create rest APIs. but in real life this module is not used to create restAPIs of a comples application.
+// because in complex application we may have many endpoints. its not a good practice to write all the endpoints in if else statements.
+// so in this section we are going to learn about the express framework which is fast and light waight framework to create the REST APIs for web applications.. 
