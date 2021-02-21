@@ -12,11 +12,11 @@ const app = express()
 // this call back function should have two arguments.(req, res)
 
 app.get('/', (req, res) => {
-    res.send("Hello World")
+    res.send("Hello World!")
 })
 
 app.get('/api/courses', (req, res) => {
-    res.send([1, 2, 3, 4, 5, 6, 7, 8, 9])
+    res.send([1, 2, 3, 4, 5, 6, 7, 8])
 })
 
 // ass out application will grow we'l move different routes in different files. like courses will be moved in courses.js so that our application may have some skeleton or some structure.
