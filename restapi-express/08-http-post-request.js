@@ -1,6 +1,8 @@
 const express = require('express');
-
 const app = express()
+
+app.use(express.json()) // here we are adding a piece of middleware. here express.json() mrthod return a piece of middleware. and then we call app.use() to use that middleware in the requesting middleware pipeline. we're going to explain it briefly in later sections.
+
 
 const courses = [
     { id: 1, name: 'web dev' },
@@ -28,6 +30,23 @@ app.get('/api/courses/:id', (req, res) => {
     }
     res.send(course)
 })
+
+app.post('/api/courses', (req, res) => {
+    const course = {
+        id: courses.length + 1,
+        name: req.body.name
+    }
+    courses.push(course)
+    res.send(course)
+})
+
+
+
+
+
+
+
+
 
 
 const port = process.env.PORT || 3000;
