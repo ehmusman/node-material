@@ -35,9 +35,8 @@ app.get('/api/courses', (req, res) => {
 
 app.get('/api/courses/:id', (req, res) => {
     const course = courses.find(c => c.id === parseInt(req.params.id))
-    if (!course) {
-        res.status(404).send('the course with the given id is not present')
-    }
+    if (!course) return res.status(404).send('the course with the given id is not present')
+
     res.send(course)
 })
 
@@ -45,10 +44,8 @@ app.get('/api/courses/:id', (req, res) => {
 
 app.post('/api/courses', (req, res) => {
     const { error } = validation(req.body)
-    if (error) {
-        res.status(400).send(error.details[0].message);
-        return;
-    }
+    if (error) return res.status(400).send(error.details[0].message);
+
     const course = {
         id: courses.length + 1,
         name: req.body.name
@@ -59,15 +56,11 @@ app.post('/api/courses', (req, res) => {
 app.put('/api/courses/:id', (req, res) => {
     // lookup the course if not existing return the error 404
     const course = courses.find(c => c.id === parseInt(req.params.id))
-    if (!course) {
-        res.status(404).send('the course with the given id is not present')
-    }
+    if (!course) return res.status(404).send('the course with the given id is not present')
     //if exists, but not valid return 400, bad request
     const { error } = validation(req.body)
-    if (error) {
-        res.status(400).send(error.details[0].message);
-        return;
-    }
+    if (error) return res.status(400).send(error.details[0].message)
+
     // update course
     course.name = req.body.name;
     // return the update course
@@ -79,9 +72,7 @@ app.delete('/api/courses/:id', (req, res) => {
     // not existing? return 404
 
     const course = courses.find(c => c.id === parseInt(req.params.id))
-    if (!course) {
-        res.status(404).send('the course with the given id is not present')
-    }
+    if (!course) return res.status(404).send('the course with the given id is not present')
 
     // Delete
     const index = courses.indexOf(course);
