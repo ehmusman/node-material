@@ -21,4 +21,4 @@ console.log('listening on port 3000......')
 // this approach is not useable in real life. because if we ad more routes in our app the if else statements are increased and complaxity of app is also increased.
 // at this point a framework appear in the picture called Express.
 // this framework give our application a propper structure. so we can add more routes in our application while keeping the application code maintainable.
-// there are various framewoks to create web application on top of node. but hte most populer one is express.
+// there are various framewoks to create web application on top of node. but the most populer one is express.
