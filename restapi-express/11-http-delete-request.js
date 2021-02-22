@@ -79,7 +79,7 @@ app.delete('/api/courses/:id', (req, res) => {
     res.send(course);
 })
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`Listening on Port ${port}...`))
 
 const validation = (course) => {
