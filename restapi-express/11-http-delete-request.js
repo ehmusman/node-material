@@ -84,8 +84,8 @@ app.delete('/api/courses/:id', (req, res) => {
     }
 
     // Delete
-    courses.filter(c => c.id !== course)
-
+    const index = courses.indexOf(course);
+    courses.splice(index, 1)
     // Return the same course
     res.send(course);
 })
