@@ -1,0 +1,12 @@
+// middleware function  is basically a function that takes a request object and return a response to the client or passes control to other middleware function. we have already seen two examples of middleware functions.
+// one is the route handler function which we used in every http request. (req,res) => {}
+//in express every route handler function we have is techniclly a middleware function. because it takes the req object and in this case it returns the response to the client as res.send(); so it terminates the request response cycle. this is one example of middle ware function.
+
+// another example is app.use(express.json)
+// this express.json is a middleware function. this method returns a middle ware function.
+// the job of this middlware function is to read the request an if htere is a json object in the body of the request, it will parse the body of the request into a  json object and then it will set req.body property, this is what happened at run time.
+// when we receive a request on the server  that request goes through this pipeline. we call this pipeline a request processing pipeline. and in this pipeline we have one or more middleware functions. each middlware function either terminate the request response cycle by retturning the response object or it may pass control to other middleware function.
+
+// so in our current implementation our request processing pipeline has two middleware functions. the first middleware function parses the request body into the json() object. so in this case it doesnot terminates the request response cycle. so it passes control to the second middleware  function which is in this case a route handler. in route handler we have a request object with the body property populated so here we can perform some operations and then terminates the request response cycle by returning a response to the client.
+// so express includes a few built in middleware functions but we can also create custome middleware functions that we can put at front of our request processing pipeline. so every request we send to the server goes from the middleware function.
+// with this custome middleware functions we can do cross cutting concerns for example logging, authentication, authorization and so on. so an express apllication is nothing but a bunch of middleware functions.
