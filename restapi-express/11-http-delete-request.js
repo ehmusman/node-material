@@ -3,9 +3,7 @@ const Joi = require('joi')
 
 const app = express()
 
-
 app.use(express.json())
-
 
 const courses = [
     { id: 1, name: 'web dev' },
@@ -19,7 +17,6 @@ const courses = [
     { id: 9, name: 'PHP' },
     { id: 10, name: 'MERN Stack' }
 ]
-
 
 app.get('/', (req, res) => {
     res.send("Hello World!")
@@ -77,6 +74,7 @@ app.delete('/api/courses/:id', (req, res) => {
     // Delete
     const index = courses.indexOf(course);
     courses.splice(index, 1)
+
     // Return the same course
     res.send(course);
 })
