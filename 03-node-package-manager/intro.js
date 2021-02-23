@@ -1,5 +1,5 @@
-// npm or node package manager which is basically a command line tool as well as a registry of third part libraries that we can add to our node applications. any kind of functionality that we want to add in our application thaer is a free open source library on npm registry.
-// we can created our own node modules which we can publish on npm. we can add node modules in our application by using a command line tool called npm.
+// npm or node package manager which is basically a command line tool as well as a registry of third party libraries that we can add to our node applications. any kind of functionality that we want to add in our application there is a free open source library on npm registry.
+// we can create our own node modules which we can publish on npm. we can add node modules in our application by using a command line tool called npm.
 
 
 

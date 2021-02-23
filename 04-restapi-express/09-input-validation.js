@@ -6,7 +6,7 @@ const Joi = require('joi')
 const app = express()
 
 
-app.use(express.json()) // here we are adding a piece of middleware. here express.json() mrthod return a piece of middleware. and then we call app.use() to use that middleware in the requesting middleware pipeline. we're going to explain it briefly in later sections.
+app.use(express.json()) // here we are adding a piece of middleware. here express.json() method return a piece of middleware. and then we call app.use() to use that middleware in the requesting middleware pipeline. we're going to explain it briefly in later sections.
 
 
 const courses = [
@@ -41,7 +41,7 @@ app.post('/api/courses', (req, res) => {
         name: Joi.string().min(3).required()
     })
     const result = schema.validate(req.body)
-    // this  result will return an obbject and a value. if conditions will be satisfied than errror will be null and viseversa 
+    // this  result will return an object and a value. if conditions will be satisfied than errror will be null and viseversa 
     console.log(result)
 
     if (result.error) {

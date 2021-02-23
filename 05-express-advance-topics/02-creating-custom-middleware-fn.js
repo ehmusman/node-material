@@ -10,7 +10,7 @@ app.use(express.json())
 
 app.use(function (req, res, next) {// here i have created  custome middleware function. code stuck here and terminate untill we uncomment the next() method.
     console.log('Authenticating....')
-    // all middleware functions runs sequensionaly
+    // all middleware functions runs sequencely
     next()
 })
 app.use(logger)

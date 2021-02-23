@@ -1,5 +1,5 @@
 const debug = require('debug')('app:startup')
-// const config = require('config');
+const config = require('config');
 const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -10,10 +10,10 @@ const app = express()
 
 
 
-// // here we'll do configuration of our app
-// debug("Application Name: " + config.get('name'))
-// debug("Mail Srver: " + config.get('mail.host'))
-// debug("Password: " + config.get('mail.password'))
+// here we'll do configuration of our app
+debug("Application Name: " + config.get('name'))
+debug("Mail Srver: " + config.get('mail.host'))
+debug("Password: " + config.get('mail.password'))
 
 
 

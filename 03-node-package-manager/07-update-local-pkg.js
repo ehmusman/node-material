@@ -3,7 +3,7 @@
 // this command will show all the installed packages with currentversion, wanted version, latest version, and ;location.
 
 // if we run npm update it will update the package from current to wanted.
-// difference between wanted version and latest version is that the wanted version and current version has the same Major version. but the latest version is may have the major version different which not be suitable for out app. because newer version may have broken some APIs whic will not support our application.
+// difference between wanted version and latest version is that the wanted version and current version has the same Major version. but the latest version is may have the major version different which not be suitable for our app. because newer version may have broken some APIs which will not support our application.
 // npm update command will update package from current to wanted version.
 
 

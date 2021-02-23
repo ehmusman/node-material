@@ -1,6 +1,6 @@
 // "mongoose" : '^4.13.6"
 // ^ this is called Caret character.
-// to understand this we have to know about semantic versioning ehich is also called SemVer.
+// to understand this we have to know about semantic versioning which is also called SemVer.
 // in semantic versioning the component of a node package has three components as i have written in first line.
 //  there names are as followed 
 // Major.Minor.Patch 

@@ -15,4 +15,4 @@
 
 // var message  = '';
 // console.log(window.message)// not a global object due to node modular system.
-// in short we can use window object with any global object
+// in short we can use "global" object with any global object

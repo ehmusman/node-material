@@ -3,4 +3,4 @@
 // we use -g flag to install a package globaly.
 // to list the global packages we use 'npm list -g'
 // npm -g outdated // used to check the outdated versions.
-// npm -g updat // used to update the globall packages
+// npm -g update // used to update the globall packages

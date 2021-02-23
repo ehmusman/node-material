@@ -22,13 +22,9 @@ app.get('/', (req, res) => {
     res.send("Hello World!")
 })
 
-
-
 app.get('/api/courses', (req, res) => {
     res.send(courses)
 })
-
-
 
 app.get('/api/courses/:id', (req, res) => {
     const course = courses.find(c => c.id === parseInt(req.params.id))
@@ -36,8 +32,6 @@ app.get('/api/courses/:id', (req, res) => {
 
     res.send(course)
 })
-
-
 
 app.post('/api/courses', (req, res) => {
     const { error } = validation(req.body)
@@ -50,6 +44,7 @@ app.post('/api/courses', (req, res) => {
     courses.push(course)
     res.send(course)
 })
+
 app.put('/api/courses/:id', (req, res) => {
     // lookup the course if not existing return the error 404
     const course = courses.find(c => c.id === parseInt(req.params.id))
