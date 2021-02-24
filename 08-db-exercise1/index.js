@@ -33,16 +33,31 @@ const Course = mongoose.model('Course', courseSchema);
 
 // get all  published frontend and backend courses and sort them by their price in descending order  pick only their name and author and display them
 
+// async function getCourses() {
+//     return await Course
+//         // .find({ isPublished: true, tags: { $in: ['frontend', 'backend'] } })
+//         .find({ isPublished: true })
+//         .or([{ tags: 'backend' }, { tags: 'frontend' }])
+//         .sort({ price: -1 })
+//         .select({ name: 1, author: 1, price: 1 })
+
+//     //
+// }
+
+
+//////// get all the published courses that are of 15$ or more, or have the word 'by' in their title
+
 async function getCourses() {
     return await Course
         // .find({ isPublished: true, tags: { $in: ['frontend', 'backend'] } })
         .find({ isPublished: true })
-        .or([{ tags: 'backend' }, { tags: 'frontend' }])
+        .or([{ price: { $gte: 15 } }, { name: /.*by.*/i }])
         .sort({ price: -1 })
         .select({ name: 1, author: 1, price: 1 })
 
     //
 }
+
 async function run() {
     const courses = await getCourses();
     console.log(courses)
