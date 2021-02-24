@@ -37,6 +37,7 @@ async function createCourse() {
 async function getCourses() {
     const courses = await Course
         ///////    
+        .find()
         // .find({ author: 'H M Usman', name: 'nodejs mongodb' }) 
         //////// lets we have courses with different prices. we want the course with exact 10$ price than
         // .find({price : 10})
@@ -45,7 +46,7 @@ async function getCourses() {
         // .find({ price: { $gte: 10, $lte: 20 } }) // here $ sign represents the implementation of operator.
         ///////////////////
         // if we want courses whose prices are equal to 10, 20, 30 dollers than? 
-        .find({ price: { $in: [10, 20, 30] } })
+        // .find({ price: { $in: [10, 20, 30] } })
         .limit(5)
         .sort({ name: 1 })
         .select({ name: 1, tags: 1 })

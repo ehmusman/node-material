@@ -17,16 +17,16 @@ const courseSchema = new mongoose.Schema({
 
 // we have created courses schema, now we have to compile this into a model. then what is a model?
 // as we have learned earlier Human is a class, and usman is the instance of this class. similarly we created a class Course, and we'll create the instance of this class called nodeCourse. then we'll save it in the the DB. this is called Models. 
-// mongoose object has a method called model. this model tales two arguments.the first argument is the singular name of the collection that the model is for. in mongodb collection we have created courses. we'll use its singular name.
-// and secong argument is a schema that defines the shape of the argument.
+// mongoose object has a method called model. this model takes two arguments.the first argument is the singular name of the collection that the model is for. in mongodb collection we have created courses. we'll use its singular name.
+// and second argument is a schema that defines the shape of the argument.
 // it will return a Course class in this application.
 
 const Course = mongoose.model('Course', courseSchema);
-// this is a class therefore we used Pascal notation.  now we r going to create an object based on this class.
+// this is a class therefore we used Pascal notation. now we are going to create an object based on this class.
 
 const course = new Course({
     name: "nodejs mongodb",
-    author: "H M Usman",
+    author: "Usman",
     tags: ['node', 'backend'],
     isPublished: true
 })

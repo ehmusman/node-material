@@ -36,7 +36,7 @@ async function createCourse() {
 async function getCourses() {
     const courses = await Course
         .find()
-        // .find({ author: 'H M Usman', name: 'nodejs mongodb' })
+        // .find({ author: 'Usman', name: 'nodejs mongodb' })
         .limit(5)
         .sort({ name: 1 }) // add any key value pair, 1 for ascending order, and -1 is for descending order
         .select({ name: 1, tags: 1 }) // here it shows we only want name and tags property.
