@@ -18,11 +18,25 @@ const courseSchema = new mongoose.Schema({
 /////////////////////
 const Course = mongoose.model('Course', courseSchema);
 
-const course = new Course({
-    name: "nodejs mongodb",
-    author: "H M Usman",
-    tags: ['node', 'backend'],
-    isPublished: true
-})
 
-/////////////////////
+async function createCourse() {
+    const course = new Course({
+        name: "react mysql",
+        author: "H M Usman",
+        tags: ['javascript', 'frontend'],
+        isPublished: true
+    })
+    const result = await course.save();
+    console.log("Result: " + result);
+}
+
+createCourse();
+// here we have a save method to save the document in db.
+// it'll need some time to save the document. because it has to access the filesystem.
+// that's why we are dealing with asynchronous operation.
+// the result of this operation would be ready in the future. so this method returns a promise.
+
+// so this await will need an async
+
+// this result is the actual object which will save in the database. mongodb will assign it a unique id.
+
