@@ -1,0 +1,8 @@
+a few mongo commands are
+
+	1 -  sudo systemctl start mongod
+	2- sudo systemctl stop mongod
+	3- sudo systemctl enable mongod
+	4- sudo systemctl status mongod
+	
+	5- mongod      // to run the server
