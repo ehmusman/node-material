@@ -110,4 +110,14 @@ async function updateCourse(id) {
     console.log(course)
 }
 
-updateCourse('6035f7cce190ed1aeac090d2')
+// updateCourse('6035f7cce190ed1aeac090d2')
+
+/////-------------------- Delete Document-------------
+async function deleteDocument(id) {
+    // const result = await Course.deleteOne({ _id: id })
+    // const result = await Course.deleteMany({ _id: id })
+    const result = await Course.findByIdAndRemove(id)
+
+    console.log(result)
+}
+// deleteDocument('6035f8457f35311b4b18ae0e')
