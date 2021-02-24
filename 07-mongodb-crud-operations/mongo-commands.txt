@@ -1,3 +1,17 @@
+to install the mongodb community edition follow the following link
+
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+
+
+to install the mongod compass follow the following link
+
+https://docs.mongodb.com/compass/master/install/
+
+
+// then install mongoose
+npm i mongoose
+ mongoose is a simple API use to work with mongodb.
+
 a few mongo commands are
 
 	1 -  sudo systemctl start mongod
@@ -6,3 +20,7 @@ a few mongo commands are
 	4- sudo systemctl status mongod
 	
 	5- mongod      // to run the server
+
+// to open the compass
+mongodb-compass
+
