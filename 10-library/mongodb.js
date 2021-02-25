@@ -39,4 +39,40 @@ async function creatingBook() {
     const result = await book.save();
     console.log("Saved Book: " + result)
 }
-creatingBook()
+// creatingBook()
+
+
+// Querying documents
+async function queryingBooks() {
+    const books = await Book
+        .find()
+        .sort('name')
+        .select('name author')
+    //
+    console.log("Books: " + books)
+}
+
+// queryingBooks();
+
+
+// updateBooks
+async function updateBook(id) {
+    const book = await Book.findByIdAndUpdate(id, {
+        $set: {
+            name: 'Sociology',
+            author: " H M Usman",
+            isPublished: false
+        }
+    }, { new: true })
+    console.log(book)
+}
+
+// updateBook("6037f269bbdb7b2fc36fa50a")
+
+// delete book
+
+async function deleteBook(id) {
+    const book = await Book.findByIdAndDelete(id)
+    console.log(book)
+}
+deleteBook("6037f269bbdb7b2fc36fa50a")
