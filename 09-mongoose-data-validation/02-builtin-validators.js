@@ -13,13 +13,13 @@ const courseSchema = new mongoose.Schema({
         required: true,
         minlength: 5,
         maxlength: 255,
-        // match: /pattern/ 
+        // match: /pattern/  // used for reqular expressions.
     },// required validator is one of the builtin validator in mongoose. this required propert is a boolean or a function which return a boolean.and this is usefull when we conditionally made a property required or not.
     // for example price is only required when the course is published.
     category: {
         type: String,
         required: true,
-        enum: ['web', 'mobile', 'network']
+        enum: ['web', 'mobile', 'network'] // used to define a few predefine characters/words that can be used.
     },
     author: String,
     tags: [String], // in this array, tags will become key value pair with key is index and values is value.
@@ -27,57 +27,34 @@ const courseSchema = new mongoose.Schema({
     isPublished: Boolean,
     price: {
         type: Number,
-        required: function () { return this.isPublished },
+        required: function () { return this.isPublished },// we cannot use arrow function here because they donot have 'this' in their scope.
         min: 10,
         max: 200
     }
 
 });
 
+
 // make a class 
 
 const Course = mongoose.model('Course', courseSchema);
 
-// get published backend courses and sort then by their name
-// async function getCourses() {
-//     return await Course
-//         .find({ isPublished: true, tags: 'backend' })
-//         .sort({ name: 1 })
-//         .select({ name: 1, author: 1 })
-
-//     //
-// }
-
-
-// get all  published frontend and backend courses and sort them by their price in descending order  pick only their name and author and display them
-
-// async function getCourses() {
-//     return await Course
-//         // .find({ isPublished: true, tags: { $in: ['frontend', 'backend'] } })
-//         .find({ isPublished: true })
-//         .or([{ tags: 'backend' }, { tags: 'frontend' }])
-//         .sort({ price: -1 })
-//         .select({ name: 1, author: 1, price: 1 })
-
-//     //
-// }
-
-
-//////// get all the published courses that are of 15$ or more, or have the word 'by' in their title
-
-async function getCourses() {
-    return await Course
-        // .find({ isPublished: true, tags: { $in: ['frontend', 'backend'] } })
-        .find({ isPublished: true })
-        .or([{ price: { $gte: 15 } }, { name: /.*by.*/i }])
-        .sort({ price: -1 })
-        .select({ name: 1, author: 1, price: 1 })
-
-    //
+async function createCourse() {
+    const course = new Course({
+        name: "react mysql",
+        author: "Usman",
+        category: 'web',
+        tags: [],
+        isPublished: true,
+        price: 15
+    })
+    try {
+        await course.validate();
+        // const result = await course.save();
+        // console.log("Result: " + result);
+    } catch (excep) {
+        console.log(excep.message)
+    }
 }
 
-async function run() {
-    const courses = await getCourses();
-    console.log(courses)
-}
-run()
+createCourse();

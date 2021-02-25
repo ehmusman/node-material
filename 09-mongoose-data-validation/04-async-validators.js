@@ -6,7 +6,7 @@ mongoose.connect('mongodb://localhost/mongo-exercise1')
 
 //
 //// course schema
-// some time builtin validators in mongoose does not give us the validation which we need. llok at tags property which is a string array. how can we validate that every row has atleast one tags? and we cannot use a required validator here.
+// some time we have to read files from file systems or an http server. this may require sometime. to solve this problem we have to do some async validation. check the tags property.
 
 const courseSchema = new mongoose.Schema({
     name: {
@@ -22,12 +22,15 @@ const courseSchema = new mongoose.Schema({
         enum: ['web', 'mobile', 'network']
     },
     author: String,
-    // tags: [String],
     tags: {
         type: Array,
         validate: { // this propert is used for custome validation.
-            validator: function (v) {
-                return v.length > 0
+            isAsync: true,
+            validator: function (v, callback) {
+                setTimeout(() => {
+                    const result = v && v.length > 0;
+                    callback(result)
+                }, 4000)
             },
             message: " A course should have atleast one tag"
         }
