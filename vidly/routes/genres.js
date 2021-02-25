@@ -12,121 +12,62 @@ const genresSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 5,
-        maxlength: 255,
+        maxlength: 50,
         lowercase: true,
-        trim: true
     }
 })
 
 // create a Genre class
 const Genre = mongoose.model('Genre', genresSchema)
 
-// create the movies genres
-
-async function createGenres() {
-    const genre = new Genre({
-        name: 'Category 1'
-    })
-    try {
-        const result = await genre.save();
-        console.log("Saving Genre..." + result)
-    } catch (ex) {
-        for (field in ex.errors) {
-            console.log(ex.errors[field].message)
-        }
-    }
-}
-
-// querying genres
-async function queryingGenres() {
-    return await Genre
-        .find()
-        .sort({ name: 1 })
-    //
-}
-
-// updating genre
-async function updateGenres(id) {
-    const genre = await Genre.findByIdAndUpdate(id, {
-        $set: {
-            name: 'new Category'
-        }
-    }, { new: true })
-    console.log(genre)
-}
-
-// delete genre
-async function deleteGenres(id) {
-    const result = await Genre.findByIdAndRemove(id)
-    console.log(result)
-}
-
-const genres = queryingGenres()
-// [
-//     { id: 1, name: 'Category 1' },
-//     { id: 2, name: 'Category 2' },
-//     { id: 3, name: 'Category 3' },
-//     { id: 4, name: 'Category 4' },
-//     { id: 5, name: 'Category 5' },
-//     { id: 6, name: 'Category 6' },
-//     { id: 7, name: 'Category 7' },
-//     { id: 8, name: 'Category 8' },
-//     { id: 9, name: 'Category 9' },
-//     { id: 10, name: 'Category 10' }
-// ]
-
 
 // getting the movies genres // making second route
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+    const genres = await Genre.find().sort('name')
     res.send(genres)
 })
 
 // getting one movie genre
-router.get('/:id', (req, res) => {
-    const genre = genres.find(c => c.id === parseInt(req.params.id))
+router.get('/:id', async (req, res) => {
+    const genre = await Genre.findById(req.params.id)
+
     if (!genre) return res.status(400).send("The Cours with the given id is not Present")
+
     else res.send(genre)
 })
 
 /// post request to add new data
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
 
     const { error } = validation(req.body)
     if (error) return res.status(400).send(error.details[0].message)
 
-    const genre = {
-        id: genres.length + 1,
-        name: req.body.name
-    }
-    genres.push(genre)
+    let genre = new Genre({ name: req.body.name })
+    genre = await genre.save();
     res.send(genre)
 })
 
-router.put('/:id', (req, res) => {
-    // check the id if it exists
-    const genre = genres.find(c => c.id === parseInt(req.params.id))
-    if (!genre) return res.status(400).send("The Cours with the given id is not Present")
+router.put('/:id', async (req, res) => {
 
-    // if exists but hte post condition is not satisfied than send the error of 400;
     const { error } = validation(req.body)
     if (error) return res.status(400).send(error.details[0].message)
 
-    // update the genre
-    genre.name = req.body.name;
+    const genre = await Genre.findByIdAndUpdate(req.params.id, { name: req.body.name }, { new: true })
+
+
+    if (!genre) return res.status(400).send("The Cours with the given id is not Present")
+
+    // if exists but hte post condition is not satisfied than send the error of 400;
 
     // return the updated genre
     res.send(genre)
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
+    const genre = await Genre.findByIdAndRemove(req.params.id)
     // check the id if it exists
-    const genre = genres.find(c => c.id === parseInt(req.params.id))
     if (!genre) return res.status(400).send("The Cours with the given id is not Present")
-
-    // Delete
-    const index = genres.indexOf(genre);
-    genres.splice(index, 1)
 
     // Return the same genre
     res.send(genre);
