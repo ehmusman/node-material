@@ -36,9 +36,8 @@ app.post('/api/books', (req, res) => {
     // destructuring result
     const { error } = validation(req.body)
 
-    if (error) {
-        res.status(400).send(error.details[0].message)
-    }
+    if (error) return res.status(400).send(error.details[0].message)
+
     // create new book object
     const book = {
         id: books.length + 1,
@@ -52,6 +51,24 @@ app.post('/api/books', (req, res) => {
     res.send(book);
 })
 
+// update book
+app.put('/api/books/:id', (req, res) => {
+    // check the book if its available
+    const book = books.find(b => b.id === parseInt(req.params.id))
+
+    if (!book) return res.status(404).send("The Book with the given ID is not available in stock....")
+
+    // if book exists, but the new values are not valid, return error
+    const { error } = validation(req.body)
+    if (error) return res.status(400).send(error.details[0].message)
+
+    // update book
+    book.name = req.body.name;
+    book.author = req.body.author;
+    book.isPublished = req.body.isPublished;
+
+    res.send(book)
+})
 
 
 //validator function 
