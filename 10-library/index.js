@@ -1,4 +1,5 @@
 const express = require('express');
+const Joi = require('joi');
 
 const app = express();
 
@@ -32,6 +33,12 @@ app.get('/api/books/:id', (req, res) => {
 
 // book post request
 app.post('/api/books', (req, res) => {
+    // destructuring result
+    const { error } = validation(req.body)
+
+    if (error) {
+        res.status(400).send(error.details[0].message)
+    }
     // create new book object
     const book = {
         id: books.length + 1,
@@ -45,6 +52,21 @@ app.post('/api/books', (req, res) => {
     res.send(book);
 })
 
+
+
+//validator function 
+const validation = (book) => {
+    // data validation by using joi
+    // writing schema
+    const schema = Joi.object({
+        name: Joi.string().min(3).required(),
+        author: Joi.string().min(3).required(),
+        isPublished: Joi.boolean().required()
+    })
+
+    // validate schema
+    return schema.validate(book);
+}
 // connect to port
 const port = process.env.PORT || PORT;
 app.listen(port, () => console.log(`Listening to port ${port}...`))
