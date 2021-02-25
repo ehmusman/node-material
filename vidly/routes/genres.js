@@ -1,20 +1,79 @@
 const express = require('express')
 const Joi = require('joi'); // require joi module
+const mongoose = require('mongoose');
+
+
 
 const router = express.Router()
 
-const genres = [
-    { id: 1, name: 'Category 1' },
-    { id: 2, name: 'Category 2' },
-    { id: 3, name: 'Category 3' },
-    { id: 4, name: 'Category 4' },
-    { id: 5, name: 'Category 5' },
-    { id: 6, name: 'Category 6' },
-    { id: 7, name: 'Category 7' },
-    { id: 8, name: 'Category 8' },
-    { id: 9, name: 'Category 9' },
-    { id: 10, name: 'Category 10' }
-]
+// create genres schema
+const genresSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+        minlength: 5,
+        maxlength: 255,
+        lowercase: true,
+        trim: true
+    }
+})
+
+// create a Genre class
+const Genre = mongoose.model('Genre', genresSchema)
+
+// create the movies genres
+
+async function createGenres() {
+    const genre = new Genre({
+        name: 'Category 1'
+    })
+    try {
+        const result = await genre.save();
+        console.log("Saving Genre..." + result)
+    } catch (ex) {
+        for (field in ex.errors) {
+            console.log(ex.errors[field].message)
+        }
+    }
+}
+
+// querying genres
+async function queryingGenres() {
+    return await Genre
+        .find()
+        .sort({ name: 1 })
+    //
+}
+
+// updating genre
+async function updateGenres(id) {
+    const genre = await Genre.findByIdAndUpdate(id, {
+        $set: {
+            name: 'new Category'
+        }
+    }, { new: true })
+    console.log(genre)
+}
+
+// delete genre
+async function deleteGenres(id) {
+    const result = await Genre.findByIdAndRemove(id)
+    console.log(result)
+}
+
+const genres = queryingGenres()
+// [
+//     { id: 1, name: 'Category 1' },
+//     { id: 2, name: 'Category 2' },
+//     { id: 3, name: 'Category 3' },
+//     { id: 4, name: 'Category 4' },
+//     { id: 5, name: 'Category 5' },
+//     { id: 6, name: 'Category 6' },
+//     { id: 7, name: 'Category 7' },
+//     { id: 8, name: 'Category 8' },
+//     { id: 9, name: 'Category 9' },
+//     { id: 10, name: 'Category 10' }
+// ]
 
 
 // getting the movies genres // making second route
