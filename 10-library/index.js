@@ -70,6 +70,23 @@ app.put('/api/books/:id', (req, res) => {
     res.send(book)
 })
 
+// delete book
+app.delete('/api/books/:id', (req, res) => {
+    // check if book is available
+    const book = books.find(b => b.id === parseInt(req.params.id))
+
+    // if book is not available
+    if (!book) return res.status(404).send("The book with the given id is not present....")
+
+    // get the index of book
+    const index = books.indexOf(book)
+
+    // delete book
+    books.splice(index, 1)
+
+    res.send(book)
+})
+
 
 //validator function 
 const validation = (book) => {
