@@ -1,38 +1,6 @@
 const express = require('express');
+const { Book, validate } = require('../model/books-model')
 
-const Joi = require('joi');
-
-const mongoose = require('mongoose');
-
-// create schema
-const booksSchema = mongoose.Schema({
-    name: {
-        type: String,
-        minlength: 3,
-        maxlength: 50,
-        require: true
-    },
-    author: {
-        type: String,
-        minlength: 3,
-        maxlength: 50,
-        require: true
-    },
-    isPublished: {
-        type: Boolean,
-        require: true
-    }
-})
-
-// create books model
-const Book = mongoose.model('Book', booksSchema);
-
-// books list
-// const books = [
-//     { id: 1, name: 'physics', author: 'usman', isPublished: false },
-//     { id: 2, name: 'chemistry', author: 'farooq', isPublished: true },
-//     { id: 3, name: 'math', author: 'ehsan', isPublished: false }
-// ]
 
 // get router from express
 const router = express.Router();
@@ -58,7 +26,7 @@ router.get('/:id', async (req, res) => {
 // book post request
 router.post('/', async (req, res) => {
     // destructuring result
-    const { error } = validation(req.body)
+    const { error } = validate(req.body)
 
     if (error) return res.status(400).send(error.details[0].message)
 
@@ -79,7 +47,7 @@ router.put('/:id', async (req, res) => {
 
 
     // if book exists, but the new values are not valid, return error
-    const { error } = validation(req.body)
+    const { error } = validate(req.body)
     if (error) return res.status(400).send(error.details[0].message)
 
     // get book
@@ -108,18 +76,5 @@ router.delete('/:id', async (req, res) => {
 })
 
 
-//validator function 
-const validation = (book) => {
-    // data validation by using joi
-    // writing schema
-    const schema = Joi.object({
-        name: Joi.string().min(3).required(),
-        author: Joi.string().min(3).required(),
-        isPublished: Joi.boolean().required()
-    })
-
-    // validate schema
-    return schema.validate(book);
-}
 
 module.exports = router
