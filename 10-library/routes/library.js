@@ -99,7 +99,7 @@ router.put('/:id', async (req, res) => {
 // delete book
 router.delete('/:id', async (req, res) => {
     // get book and delete it
-    const book = Book.findByIdAndRemove(req.params.id)
+    const book = await Book.findByIdAndRemove(req.params.id)
 
     // if book is not available
     if (!book) return res.status(404).send("The book with the given id is not present....")
