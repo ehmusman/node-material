@@ -1,9 +1,15 @@
 const express = require('express');
+const mongoose = require('mongoose')
 
+const books = require('./routes/library')
+const home = require('./routes/home')
+
+// connect to database
+mongoose.connect('mongodb://localhost/library')
+    .then(() => console.log("Connected to database...."))
+    .catch(err => console.log(`Failed connection to database, an error occured ${err}`))
 const app = express();
 
-const books = require('./routes/books')
-const home = require('./routes/home')
 // a middleware for post request
 app.use(express.json())
 
