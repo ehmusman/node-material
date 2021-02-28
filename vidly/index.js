@@ -1,6 +1,7 @@
 const express = require('express'); // require express module
 const mongoose = require('mongoose');
 const genres = require('./routes/genres')
+const movies = require('./routes/movies')
 const home = require('./routes/home')
 const customers = require('./routes/customers')
 // connecting to database
@@ -19,6 +20,10 @@ app.use("/", home)
 
 // router /api/customers
 app.use('/api/customers', customers)
+
+
+// router /api/customers
+app.use('/api/movies', movies)
 
 const port = process.env.PORT || 3000
 

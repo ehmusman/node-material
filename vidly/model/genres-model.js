@@ -23,5 +23,6 @@ const genreValidation = (course) => {
     return schema.validate(course)
 }
 
+exports.genresSchema = genresSchema;
 exports.Genre = Genre;
 exports.validate = genreValidation;
