@@ -2,8 +2,10 @@ const express = require('express');
 const { Movie } = require('../model/movies-model');
 const { Customer } = require('../model/customer-model');
 const { Rental, validation } = require('../model/rental-model');
+const mongoose = require('mongoose')
+const Fawn = require('fawn')
 
-
+Fawn.init(mongoose)
 const router = express.Router();
 
 
@@ -42,16 +44,23 @@ router.post('/', async (req, res) => {
             dailyRentalRate: movie.dailyRentalRate
         }
     });
-    rental = await rental.save();
-    movie.numberInStock--;
-    movie.save();
 
+    // solved the following problem
     // here is a problem. we have two saperate methods. rental.save() and movie.save(). its possible when first method is happened something went wrong in the database and our application crashed, or server crashed or connection to mongodb blocked. and perhaps second operation will not be completed. thats where we need a transaction. so with the transaction we ensure that both of the operations will update the state of our data in the database. or none of them will be applied. they both wil complete or they both will be rolled back. so in lot of databases we have this concept of transaction but in mongodb we dont really have transctions. there is a techniqe that is called  two phase commit. this is an advanced topic related to mongo. there is an npm package that can simulate a transaction. we'll study about it.
-    res.send(rental)
+
+    try {
+        new Fawn.Task()
+            .save('rentals', rental)
+            .update('movies', { _id: movie._id }, {
+                $inc: { numberInStock: -1 }
+            })
+            .run()
+        res.send(rental)
+    } catch (ex) {
+        res.status(500).send("Something failed")// 500 means internal server error
+    }
 })
 
-
-// get a single rental
 router.get('/:id', async (req, res) => {
     const rental = await Rental.findById(req.params.id);
 
