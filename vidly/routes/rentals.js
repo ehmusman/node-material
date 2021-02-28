@@ -53,7 +53,7 @@ router.post('/', async (req, res) => {
 
 // get a single rental
 router.get('/:id', async (req, res) => {
-    const rental = Rental.findById(req.params.id);
+    const rental = await Rental.findById(req.params.id);
 
     if (!rental) return res.status(400).send("The Rental with the given id is not present")
 
