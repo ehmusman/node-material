@@ -8,6 +8,7 @@ const home = require('./routes/home')
 const customers = require('./routes/customers')
 const rentals = require('./routes/rentals')
 const users = require('./routes/users')
+const auth = require('./routes/auth')
 // connecting to database
 mongoose.connect('mongodb://localhost/vidly')
     .then(() => console.log('Connected to database...'))
@@ -35,6 +36,9 @@ app.use('/api/rentals', rentals)
 
 // router /api/users
 app.use('/api/users', users)
+
+// router /api/auth
+app.use('/api/auth', auth)
 
 const port = process.env.PORT || 3000
 

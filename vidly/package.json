@@ -9,6 +9,7 @@
   "author": "H M Usman",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "express": "^4.17.1",
     "fawn": "^2.1.5",
     "joi": "^17.4.0",
