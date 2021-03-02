@@ -1,6 +1,5 @@
 const express = require('express');
 const { User } = require('../model/users-model')
-const _ = require('lodash');
 const bcrypt = require('bcrypt')
 const router = express.Router();
 const Joi = require('joi');
