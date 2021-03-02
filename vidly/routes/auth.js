@@ -1,12 +1,11 @@
 const express = require('express');
-const asyncMiddleware = require('../middleware/async')
 const { User } = require('../model/users-model')
 const bcrypt = require('bcrypt')
 const router = express.Router();
 const Joi = require('joi');
 const PasswordComplexity = require('joi-password-complexity');
 
-router.post('/', asyncMiddleware(async (req, res) => {
+router.post('/', async (req, res) => {
     const { error } = validation(req.body)
     console.log(req.body)
     if (error) return res.status(400).send(error.details[0].message)
@@ -19,7 +18,7 @@ router.post('/', asyncMiddleware(async (req, res) => {
     // req.body.pasword is a plain text password which is sent by user. and user.password is the encrypted passwword which was stored in database. if both are equal it will return true.
     const token = user.generateAuthToken()
     res.send(token)
-}))
+})
 
 const validation = req => {
     const schema = Joi.object({

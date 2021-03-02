@@ -1,4 +1,3 @@
-const asyncMiddleware = require('../middleware/async')
 const auth = require('../middleware/auth') // here auth represents authorization not authentication
 const express = require('express');
 const { User, validation } = require('../model/users-model')
@@ -7,11 +6,11 @@ const bcrypt = require('bcrypt')
 const router = express.Router();
 
 
-router.get('/me', auth, asyncMiddleware(async (req, res) => {
+router.get('/me', auth, async (req, res) => {
     const user = await User.findById(req.user._id).select('-password')
     res.send(user)
-}))
-router.post('/', asyncMiddleware(async (req, res) => {
+})
+router.post('/', async (req, res) => {
     const { error } = validation(req.body)
     if (error) return res.status(400).send(error.details[0].message);
     // check for if user is alreaady exist
@@ -28,6 +27,6 @@ router.post('/', asyncMiddleware(async (req, res) => {
     const token = user.generateAuthToken()
     res.header('x-auth-token', token).send(_.pick(user, ['_id', "name", "email"]))
     // now password will not be sent
-}))
+})
 
 module.exports = router;
