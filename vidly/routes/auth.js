@@ -6,7 +6,6 @@ const router = express.Router();
 const Joi = require('joi');
 const PasswordComplexity = require('joi-password-complexity');
 
-
 router.post('/', async (req, res) => {
     const { error } = validation(req.body)
     if (error) return res.status(400).send(error.details[0].message);
@@ -17,7 +16,8 @@ router.post('/', async (req, res) => {
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) return res.status(400).send("Invalid email or password")
     // req.body.pasword is a plain text password which is sent by user. and user.password is the encrypted passwword which was stored in database. if both are equal it will return true.
-    res.send(true) // just send true to the user
+    const token = user.generateAuthToken()
+    res.send(token)
 })
 
 const validation = req => {

@@ -1,7 +1,7 @@
 // intro to authenticationa and authorization.
 
 // Authentication is the process of identifying is the user is who they claim they are.
-// forexample in logging. se send username and password to the server and the server authenticate us.
+// forexample in logging. we send username and password to the server and the server authenticate us.
 
 // authorization is determining if the user has the right permissions to perform the given operation 
 // in our vidly application we want that only registered, logged in and authenticated users can perform operations that can modify data.

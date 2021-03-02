@@ -1,7 +1,7 @@
 // post request for registering user is finished
 // but here is a problem when we use following method
 // res.send(user).
-// users password also sends. but we dont want to send the users passwors. to solve this purpose we cen use this method by following way
+// users password also sends. but we dont want to send the users passwors. to solve this problem we cen use this method by following way
 // res.send({name: user.name, email: user.email})
 
 // we also have a library lodash to solve this problem. lodash is the super version of underscore. its very powerfull and can handle with numbers, strings,objects and so on very smoothly.

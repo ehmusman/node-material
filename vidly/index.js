@@ -1,3 +1,4 @@
+const config = require('config')
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
 const express = require('express'); // require express module
@@ -9,6 +10,13 @@ const customers = require('./routes/customers')
 const rentals = require('./routes/rentals')
 const users = require('./routes/users')
 const auth = require('./routes/auth')
+
+if (!config.get("jwtPrivateKey")) {
+    console.log("Fetal Error:  jwtPrivateKey is not defined")
+    // then we need to exit the process
+    process.exit(1) // 0 is for success other than 0 is for failure
+    // nodemon will not exit the application. node will exit the application. nodemon still working even the application ceashes.
+}
 // connecting to database
 mongoose.connect('mongodb://localhost/vidly')
     .then(() => console.log('Connected to database...'))
