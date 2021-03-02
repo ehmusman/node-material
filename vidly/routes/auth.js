@@ -7,7 +7,8 @@ const PasswordComplexity = require('joi-password-complexity');
 
 router.post('/', async (req, res) => {
     const { error } = validation(req.body)
-    if (error) return res.status(400).send(error.details[0].message);
+    console.log(req.body)
+    if (error) return res.status(400).send(error.details[0].message)
     // check for if user is alreaady exist
     let user = await User.findOne({ email: req.body.email })
     if (!user) return res.status(400).send("invalid email or password.")

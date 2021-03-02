@@ -1,0 +1,3 @@
+// in auth module we define the route with post request for authenticating user. what about loging out user. didi we need a saperate route handler for this?
+// no because we are not storing the token on any server. technically the login logout is on the client device. not on the server. on client device when the user logout we simply delete the token from client device. its very bad practice to store the token on the server because this token is used to protect the API end point.
+// if we want to send the token to the server we should use the https instead of http.

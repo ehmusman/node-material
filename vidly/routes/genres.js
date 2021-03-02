@@ -1,4 +1,5 @@
 const auth = require('../middleware/auth')
+const admin = require('../middleware/admin')
 const express = require('express')
 const { Genre, validate } = require('../model/genres-model')
 
@@ -48,7 +49,7 @@ router.put('/:id', auth, async (req, res) => {
     res.send(genre)
 })
 
-router.delete('/:id', auth, async (req, res) => {
+router.delete('/:id', [auth, admin], async (req, res) => {
     const genre = await Genre.findByIdAndRemove(req.params.id)
     // check the id if it exists
     if (!genre) return res.status(400).send("The Cours with the given id is not Present")
