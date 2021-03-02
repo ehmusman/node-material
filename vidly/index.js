@@ -10,6 +10,7 @@ const customers = require('./routes/customers')
 const rentals = require('./routes/rentals')
 const users = require('./routes/users')
 const auth = require('./routes/auth')
+const error = require('./middleware/error')
 
 if (!config.get("jwtPrivateKey")) {
     console.log("Fetal Error:  jwtPrivateKey is not defined")
@@ -24,29 +25,17 @@ mongoose.connect('mongodb://localhost/vidly')
 //
 const app = express(); // call the express method it will return an object
 app.use(express.json());
-
-// route /api/genres
 app.use("/api/genres", genres)
-
-// home
 app.use("/", home)
-
-// router /api/customers
 app.use('/api/customers', customers)
-
-
-// router /api/customers
 app.use('/api/movies', movies)
-
-// router /api/rentals
 app.use('/api/rentals', rentals)
-
-
-// router /api/users
 app.use('/api/users', users)
-
-// router /api/auth
 app.use('/api/auth', auth)
+
+// middleware function for handeling the exception
+app.use(error)
+
 
 const port = process.env.PORT || 3000
 

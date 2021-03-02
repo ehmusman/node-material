@@ -1,3 +1,4 @@
+const asyncMiddleware = require('../middleware/async')
 const express = require('express');
 const { Genre } = require('../model/genres-model');
 const { Movie, validation } = require('../model/movies-model');
@@ -5,20 +6,20 @@ const { Movie, validation } = require('../model/movies-model');
 const router = express.Router();
 
 // querrying the all movies
-router.get('/', async (req, res) => {
+router.get('/', asyncMiddleware(async (req, res) => {
     const movies = await Movie.find().sort('title')
     res.send(movies)
-})
+}))
 
 //query for single movie
-router.get('/:id', async (req, res) => {
+router.get('/:id', asyncMiddleware(async (req, res) => {
     const movie = await Movie.findById(req.params.id)
     if (!movie) return res.status(400).send("The movie with the given id is not present")
     res.send(movie)
-})
+}))
 // post movie
 
-router.post('/', async (req, res) => {
+router.post('/', asyncMiddleware(async (req, res) => {
     const { error } = validation(req.body)
     if (error) return res.status(400).send(error.details[0].message)
 
@@ -36,10 +37,10 @@ router.post('/', async (req, res) => {
     })
     movie = await movie.save()
     res.send(movie)
-})
+}))
 
 // put request
-router.put('/:id', async (req, res) => {
+router.put('/:id', asyncMiddleware(async (req, res) => {
     const { error } = validation(req.body)
     if (error) return res.status(400).send(error.details[0].message)
 
@@ -56,14 +57,14 @@ router.put('/:id', async (req, res) => {
         dailyRentalRate: req.body.dailyRentalRate
     }, { new: true })
     res.send(movie)
-})
+}))
 
 // delete request
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', asyncMiddleware(async (req, res) => {
     const movie = await Movie.findByIdAndDelete(req.params.id)
     if (!movie) return res.status(400).send("the movie with the given id is not present....")
     res.send(movie)
-})
+}))
 
 
 module.exports = router;

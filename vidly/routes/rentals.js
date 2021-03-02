@@ -1,3 +1,4 @@
+const asyncMiddleware = require('../middleware/async')
 const express = require('express');
 const { Movie } = require('../model/movies-model');
 const { Customer } = require('../model/customer-model');
@@ -10,13 +11,13 @@ const router = express.Router();
 
 
 // querry for all rentals
-router.get('/', async (req, res) => {
+router.get('/', asyncMiddleware(async (req, res) => {
     const rentals = await Rental.find().sort('-dateOut');
     res.send(rentals)
-})
+}))
 
 // post request for rentals
-router.post('/', async (req, res) => {
+router.post('/', asyncMiddleware(async (req, res) => {
     const { error } = validation(req.body)
     if (error) return res.status(400).send(error.details[0].message)
 
@@ -59,14 +60,14 @@ router.post('/', async (req, res) => {
     } catch (ex) {
         res.status(500).send("Something failed")// 500 means internal server error
     }
-})
+}))
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', asyncMiddleware(async (req, res) => {
     const rental = await Rental.findById(req.params.id);
 
     if (!rental) return res.status(400).send("The Rental with the given id is not present")
 
     res.send(rental)
-})
+}))
 
 module.exports = router;
