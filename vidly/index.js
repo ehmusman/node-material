@@ -1,5 +1,6 @@
 require('express-async-errors')
 const winston = require('winston');
+require('winston-mongodb')
 const config = require('config')
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
@@ -14,7 +15,27 @@ const users = require('./routes/users')
 const auth = require('./routes/auth')
 const error = require('./middleware/error');
 
+process.on('uncaughtException', (ex) => {
+    console.log("we got an uncaught exception...")
+    // now log it by using winston
+    winston.error(ex.message, ex)
+})
+
+process.on('unhandledRejection', ex => {
+    console.log("we got an unhandeled rejection")
+    winston.error(ex.message, ex)
+})
+
+
 winston.add(winston.transports.File, { filename: 'logfile.log' })
+
+winston.add(winston.transports.MongoDB, { db: 'mongodb://localhost/vidly', level: 'error' })
+
+const p = Promise.reject(new Error("something failed miserably"));
+p.then(() => console.log("Done"))
+
+// throw new Error("Something failed during startup..")
+
 if (!config.get("jwtPrivateKey")) {
     console.log("Fetal Error:  jwtPrivateKey is not defined")
     // then we need to exit the process
