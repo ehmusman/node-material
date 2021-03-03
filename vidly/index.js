@@ -15,15 +15,11 @@ const users = require('./routes/users')
 const auth = require('./routes/auth')
 const error = require('./middleware/error');
 
-process.on('uncaughtException', (ex) => {
-    console.log("we got an uncaught exception...")
-    // now log it by using winston
-    winston.error(ex.message, ex)
-})
-
+winston.handleExceptions(
+    new winston.transports.File({ filename: 'uncaughtExceptions.log' })
+)
 process.on('unhandledRejection', ex => {
-    console.log("we got an unhandeled rejection")
-    winston.error(ex.message, ex)
+    throw ex
 })
 
 
